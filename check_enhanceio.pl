@@ -97,14 +97,23 @@ foreach my $cache (@caches) {
       my $counter = $_;
       $np->add_perfdata(
          label => $cachename ."_". $counter,
-         value => $errors{$counter}
+         value => $errors{$counter},
+         uom => "c"
       ); 
    }
-  for(keys %stats) {
+
+   for(keys %stats) {
       my $counter = $_;
+      my $uom;
+      if($counter =~ /_pct/) {
+         $uom = "%";
+      } else {
+         $uom = "c";
+      }
       $np->add_perfdata(
          label => $cachename ."_". $counter,
-         value => $stats{$counter}
+         value => $stats{$counter},
+         uom => $uom
       ); 
    }
 
