@@ -36,7 +36,7 @@ my $np = Nagios::Plugin->new(
   blurb => 'Plugin for monitoring EnhanceIO',
   extra   => "Supported commands :\n"
     . "\n\nCopyright (c) Andreas Unterkircher, unki\@netshadow.at"
-); 
+);
 
 $np->add_arg(
   spec => 'cache|C=s',
@@ -99,7 +99,7 @@ foreach my $cache (@caches) {
          label => $cachename ."_". $counter,
          value => $errors{$counter},
          uom => "c"
-      ); 
+      );
    }
 
    for(keys %stats) {
@@ -107,6 +107,8 @@ foreach my $cache (@caches) {
       my $uom;
       if($counter =~ /_pct/) {
          $uom = "%";
+      } elsif ($counter =~ /nr_dirty/) {
+	 $uom = "";
       } else {
          $uom = "c";
       }
@@ -114,7 +116,7 @@ foreach my $cache (@caches) {
          label => $cachename ."_". $counter,
          value => $stats{$counter},
          uom => $uom
-      ); 
+      );
    }
 
    $cachestates{$cachename} = {
@@ -122,7 +124,7 @@ foreach my $cache (@caches) {
       errors => %errors,
       stats => %stats
    };
-    
+
 }
 
 if(!%cachestates) {

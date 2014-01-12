@@ -73,6 +73,7 @@ foreach($caches as $cache) {
 
    // others
    $memory_alloc_errors = $cache ."_memory_alloc_errors";
+   $nr_dirty = $cache ."_nr_dirty";
 
    /**
     * read/write percentage
@@ -138,6 +139,16 @@ foreach($caches as $cache) {
    $def[$cnt] = '';
    $def[$cnt].= rrd::def("var1", $RRDFILE[$stats[$memory_alloc_errors]], $DS[$stats[$memory_alloc_errors]], 'AVERAGE');
    $def[$cnt].= rrd::line2 ("var1", rrd::color(0), "Memory Allocation Errors");
+   $cnt++;
+
+   /**
+    * number of dirty pages backlog
+    */
+   $ds_name[$cnt] = "dirty pages backlog";
+   $opt[$cnt] = sprintf('-l 0 --vertical-label "Number" --title "%s / %s"', $hostname, $ds_name[$cnt]);
+   $def[$cnt] = '';
+   $def[$cnt].= rrd::def("var1", $RRDFILE[$stats[$memory_alloc_errors]], $DS[$stats[$memory_alloc_errors]], 'AVERAGE');
+   $def[$cnt].= rrd::line2 ("var1", rrd::color(0), "Dirty Pages");
    $cnt++;
 
    //error_log(print_r($matches, TRUE));
