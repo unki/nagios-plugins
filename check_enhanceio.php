@@ -147,7 +147,7 @@ foreach($caches as $cache) {
    $ds_name[$cnt] = "dirty pages backlog";
    $opt[$cnt] = sprintf('-l 0 --vertical-label "Number" --title "%s / %s"', $hostname, $ds_name[$cnt]);
    $def[$cnt] = '';
-   $def[$cnt].= rrd::def("var1", $RRDFILE[$stats[$memory_alloc_errors]], $DS[$stats[$memory_alloc_errors]], 'AVERAGE');
+   $def[$cnt].= rrd::def("var1", $RRDFILE[$stats[$nr_dirty]], $DS[$stats[$nr_dirty]], 'AVERAGE');
    $def[$cnt].= rrd::line2 ("var1", rrd::color(0), "Dirty Pages");
    $cnt++;
 
